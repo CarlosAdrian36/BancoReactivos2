@@ -23,7 +23,7 @@ const router = createRouter({
         {
           path: "misBancos/:id",
           name: "banco-detalle",
-          component: () => import("../modules/home/views/bancodetalle.vue")
+          component: () => import("../modules/home/views/bancoInicio.vue")
         }
       ]
     }

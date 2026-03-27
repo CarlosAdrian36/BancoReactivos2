@@ -4,6 +4,7 @@ const irDetalle = (item: any) => {
   if (item.tipo === "banco") {
     router.push({
       name: "banco-detalle",
+
       params: { id: item.id }
     });
   } else {
@@ -204,11 +205,11 @@ const lista = computed(() => {
         </td>
         <td>
           <div class="flex gap-3">
-            <button class="btn btn-soft btn-info">
+            <button class="btn btn-soft btn-info" @click.stop>
               <i class="fa-regular fa-pen-to-square"></i>
             </button>
 
-            <button class="btn btn-soft btn-error">
+            <button class="btn btn-soft btn-error" @click.stop>
               <i class="fa-regular fa-trash-can"></i>
             </button>
           </div>
