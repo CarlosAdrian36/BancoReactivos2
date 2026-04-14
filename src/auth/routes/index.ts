@@ -5,7 +5,7 @@ export const login: RouteRecordRaw[] = [
   {
     path: "/login",
     name: "Login",
-    // redirect : '/login/index',
+    redirect: "/login/ingresar",
     component: Login,
     children: [
       {
@@ -17,6 +17,11 @@ export const login: RouteRecordRaw[] = [
         path: "enviar-correo",
         name: "EnviarCorreo",
         component: () => import("../views/enviodeCorreo.vue")
+      },
+      {
+        path: "restablecer-contrasena",
+        name: "RestablecerContrasena",
+        component: () => import("../views/restablecerContrasena.vue")
       }
     ]
   }

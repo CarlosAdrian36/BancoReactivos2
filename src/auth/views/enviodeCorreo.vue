@@ -32,16 +32,17 @@ const onSubmit = handleSubmit((formValues) => {
     >
       <!-- HEADER -->
       <div class="flex flex-col items-center gap-6 mb-10">
-        <div class="flex items-center justify-center gap-4">
-          <div class="h-12 px-3 flex items-center justify-center bg-warning/50 rounded-lg">
-            <span class="text-base-content font-bold text-xl tracking-tighter"> UANL </span>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 text-center sm:text-left">
+          <div class="h-12 px-3 flex items-center justify-center rounded-lg">
+            <!-- <span class="text-base-content font-bold text-xl tracking-tighter"> UANL </span> -->
+            <img src="/src/assets/image/Logo_de_la_UANL.svg.webp" alt="UANL Logo" class="h-20 w-auto" />
           </div>
 
           <div class="h-8 w-px bg-white/30 dark:bg-white/20"></div>
 
           <div class="flex items-center gap-2">
-            <!-- <i class="fa-brands fa-neos"></i> -->
-            <span class="text-base-content font-semibold text-2xl tracking-tight"> Nexus </span>
+            <!-- <span class="text-base-content font-semibold text-2xl tracking-tight"> Nexus </span> -->
+            <img src="/src/assets/image/nx-logo.png" alt="Nexus Logo" class="h-10 w-auto" />
           </div>
         </div>
 
@@ -55,7 +56,7 @@ const onSubmit = handleSubmit((formValues) => {
       <form @submit.prevent="onSubmit" class="space-y-6">
         <!-- Usuario -->
         <div>
-          <label class="block text-sm font-medium text-base-content/30 mb-2"> Usuario </label>
+          <label class="block text-sm font-medium text-base-content/70 mb-2"> Usuario </label>
 
           <div class="relative group">
             <i
@@ -69,7 +70,7 @@ const onSubmit = handleSubmit((formValues) => {
               :class="[
                 'w-full pl-10 pr-4 py-3 bg-base-200/50 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary text-base-content placeholder-gray-400 dark:placeholder-gray-500 transition-all outline-none',
                 {
-                  'border border-red-500 focus:ring-red-500 focus:border-red-500': errors.username
+                  'border border-red-500 focus:ring-red-500 focus:border-red-500 p-2 ': errors.username
                 }
               ]"
             />
@@ -80,7 +81,7 @@ const onSubmit = handleSubmit((formValues) => {
         </div>
         <!-- Correo -->
         <div>
-          <label class="block text-sm font-medium text-base-content/30 mb-2"> Correo Electrónico </label>
+          <label class="block text-sm font-medium text-base-content/70 mb-2"> Correo Electrónico </label>
 
           <div class="relative group">
             <i

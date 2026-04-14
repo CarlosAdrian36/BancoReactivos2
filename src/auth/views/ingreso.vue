@@ -42,14 +42,16 @@ const onSubmit = handleSubmit((formValues) => {
       <!-- HEADER -->
       <div class="flex flex-col items-center gap-6 mb-10">
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4 text-center sm:text-left">
-          <div class="h-12 px-3 flex items-center justify-center bg-warning/50 rounded-lg">
-            <span class="text-base-content font-bold text-xl tracking-tighter"> UANL </span>
+          <div class="h-12 px-3 flex items-center justify-center rounded-lg">
+            <!-- <span class="text-base-content font-bold text-xl tracking-tighter"> UANL </span> -->
+            <img src="/src/assets/image/Logo_de_la_UANL.svg.webp" alt="UANL Logo" class="h-20 w-auto" />
           </div>
 
           <div class="h-8 w-px bg-white/30 dark:bg-white/20"></div>
 
           <div class="flex items-center gap-2">
-            <span class="text-base-content font-semibold text-2xl tracking-tight"> Nexus </span>
+            <!-- <span class="text-base-content font-semibold text-2xl tracking-tight"> Nexus </span> -->
+            <img src="/src/assets/image/nx-logo.png" alt="Nexus Logo" class="h-10 w-auto" />
           </div>
         </div>
 
@@ -63,7 +65,7 @@ const onSubmit = handleSubmit((formValues) => {
       <form @submit.prevent="onSubmit" class="space-y-6">
         <!-- Usuario -->
         <div>
-          <label class="block text-sm font-medium text-base-content/30 mb-2"> Usuario </label>
+          <label class="block text-sm font-medium text-base-content/80 mb-2"> Usuario </label>
 
           <div class="relative group">
             <i
@@ -90,7 +92,7 @@ const onSubmit = handleSubmit((formValues) => {
         <!-- Password -->
         <div>
           <div class="flex justify-between items-center mb-2">
-            <label class="block text-sm font-medium text-base-content/30"> Contraseña </label>
+            <label class="block text-sm font-medium text-base-content/80"> Contraseña </label>
             <router-link :to="{ name: 'EnviarCorreo' }" class="text-xs font-semibold text-primary hover:underline">
               ¿Olvidaste tu contraseña?
             </router-link>
@@ -145,7 +147,7 @@ const onSubmit = handleSubmit((formValues) => {
 
       <!-- Footer -->
       <div class="mt-6 sm:mt-8 pt-4 sm:pt-6 text-center border-t border-gray-200 dark:border-white/10">
-        <p class="text-sm text-gray-500 dark:text-gray-400">
+        <p class="text-sm">
           ¿No tienes una cuenta?
           <a class="font-semibold text-primary hover:underline" href="#"> Contacta a tu administrador </a>
         </p>
@@ -153,7 +155,7 @@ const onSubmit = handleSubmit((formValues) => {
     </div>
 
     <div class="mt-8 text-center text-white/60 text-xs">
-      <p>© 2024 Universidad Autónoma de Nuevo León</p>
+      <p>© 2026 Universidad Autónoma de Nuevo León</p>
       <div class="flex justify-center gap-4 mt-2">
         <a class="hover:text-white" href="#">Aviso de Privacidad</a>
         <span class="text-white/20">•</span>
