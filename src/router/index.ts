@@ -1,9 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router";
 import LayoutPrincipal from "../modules/home/layout/layoutPrincipal.vue";
+import { login } from "../auth/routes";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    ...login,
     {
       path: "/",
       name: "home",
