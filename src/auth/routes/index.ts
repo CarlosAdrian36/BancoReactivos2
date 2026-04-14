@@ -7,6 +7,17 @@ export const login: RouteRecordRaw[] = [
     name: "Login",
     // redirect : '/login/index',
     component: Login,
-    children: []
+    children: [
+      {
+        path: "ingresar",
+        name: "Ingresar",
+        component: () => import("..//views/ingreso.vue")
+      },
+      {
+        path: "enviar-correo",
+        name: "EnviarCorreo",
+        component: () => import("../views/enviodeCorreo.vue")
+      }
+    ]
   }
 ];
