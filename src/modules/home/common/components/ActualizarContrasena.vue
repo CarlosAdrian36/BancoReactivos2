@@ -1,70 +1,8 @@
-<script setup lang="ts">
-import { useForm } from "vee-validate";
-import { z } from "zod";
-import { toTypedSchema } from "@vee-validate/zod";
-import { ref } from "vue";
-
-const showPassword = ref(false);
-
-const togglePassword = () => {
-  showPassword.value = !showPassword.value;
-};
-
-const resetearSchema = z
-  .object({
-    contrasena: z
-      .string()
-      .min(9, "La contraseña debe tener al menos 9 caracteres")
-      .max(16, "La contraseña no debe exceder los 16 caracteres")
-      .regex(/[A-Z]/, "La contraseña debe contener al menos una letra mayúscula")
-      .regex(/[a-z]/, "La contraseña debe contener al menos una letra minúscula")
-      .regex(/[0-9]/, "La contraseña debe contener al menos un número")
-      .refine((val) => !/\s/.test(val), "La contraseña no debe contener espacios"),
-    confirmacion: z.string()
-  })
-  .refine((data) => data.contrasena === data.confirmacion, {
-    message: "Las contraseñas no coinciden",
-    path: ["confirmacion"]
-  });
-
-type ReseteoForm = z.infer<typeof resetearSchema>;
-
-const { handleSubmit, errors, values, defineField, submitCount } = useForm<ReseteoForm>({
-  validationSchema: toTypedSchema(resetearSchema),
-  initialValues: {
-    contrasena: "",
-    confirmacion: ""
-  }
-});
-const onSubmit = handleSubmit((values) => {
-  console.log("Formulario válido:", values);
-});
-
-const [contrasena, contrasenaAttrs] = defineField("contrasena");
-const [confirmacion, confirmacionAttrs] = defineField("confirmacion");
-</script>
-
 <template>
   <div class="w-full max-w-md sm:max-w-lg lg:max-w-xl">
-    <div
-      class="bg-white/30 dark:bg-white/10 border border-white/30 dark:border-white/10 shadow-2xl rounded-3xl p-6 sm:p-8 lg:p-10 transition-all duration-300"
-    >
+    <div class="">
       <!-- HEADER -->
       <div class="flex flex-col items-center gap-6 mb-10">
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 text-center sm:text-left">
-          <div class="h-12 px-3 flex items-center justify-center rounded-lg">
-            <!-- <span class="text-base-content font-bold text-xl tracking-tighter"> UANL </span> -->
-            <img src="/src/assets/image/Logo_de_la_UANL.svg.webp" alt="UANL Logo" class="h-20 w-auto" />
-          </div>
-
-          <div class="h-8 w-px bg-white/30 dark:bg-white/20"></div>
-
-          <div class="flex items-center gap-2">
-            <!-- <span class="text-base-content font-semibold text-2xl tracking-tight"> Nexus </span> -->
-            <img src="/src/assets/image/nx-logo.png" alt="Nexus Logo" class="h-10 w-auto" />
-          </div>
-        </div>
-
         <div class="text-center">
           <h1 class="text-2xl font-bold text-base-content/70">Restablecer contraseña</h1>
         </div>
@@ -92,6 +30,27 @@ const [confirmacion, confirmacionAttrs] = defineField("confirmacion");
 
       <!-- FORM -->
       <form @submit.prevent="onSubmit" class="space-y-6 pt-3">
+        <div>
+          <label class="block text-sm font-medium text-base-content/70 mb-2"> Confirmar Contraseña </label>
+
+          <div class="relative group">
+            <i
+              class="fas fa-key absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary transition-colors"
+            ></i>
+
+            <input
+              v-model="confirmacion"
+              v-bind="confirmacionAttrs"
+              type="password"
+              :class="[
+                'w-full pl-10 pr-4 py-3 bg-base-200/50 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary text-base-content placeholder-gray-400 dark:placeholder-gray-500 transition-all outline-none',
+                {
+                  'border border-red-500 focus:ring-red-500 focus:border-red-500': errors.confirmacion
+                }
+              ]"
+            />
+          </div>
+        </div>
         <!-- Nueva Contraseña -->
         <div>
           <label class="block text-sm font-medium text-base-content/70 mb-2"> Nueva Contraseña </label>
@@ -164,27 +123,6 @@ const [confirmacion, confirmacionAttrs] = defineField("confirmacion");
           </div>
         </div>
         <!-- Confirmar Contraseña -->
-        <div>
-          <label class="block text-sm font-medium text-base-content/70 mb-2"> Confirmar Contraseña </label>
-
-          <div class="relative group">
-            <i
-              class="fas fa-key absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary transition-colors"
-            ></i>
-
-            <input
-              v-model="confirmacion"
-              v-bind="confirmacionAttrs"
-              type="password"
-              :class="[
-                'w-full pl-10 pr-4 py-3 bg-base-200/50 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary text-base-content placeholder-gray-400 dark:placeholder-gray-500 transition-all outline-none',
-                {
-                  'border border-red-500 focus:ring-red-500 focus:border-red-500': errors.confirmacion
-                }
-              ]"
-            />
-          </div>
-        </div>
 
         <!-- Button -->
         <button
@@ -197,9 +135,49 @@ const [confirmacion, confirmacionAttrs] = defineField("confirmacion");
     </div>
   </div>
 </template>
-<style scoped>
-.glass-card {
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-}
-</style>
+
+<script lang="ts" setup>
+import { useForm } from "vee-validate";
+import { z } from "zod";
+import { toTypedSchema } from "@vee-validate/zod";
+import { ref } from "vue";
+
+const showPassword = ref(false);
+
+const togglePassword = () => {
+  showPassword.value = !showPassword.value;
+};
+
+const resetearSchema = z
+  .object({
+    contrasena: z
+      .string()
+      .min(9, "La contraseña debe tener al menos 9 caracteres")
+      .max(16, "La contraseña no debe exceder los 16 caracteres")
+      .regex(/[A-Z]/, "La contraseña debe contener al menos una letra mayúscula")
+      .regex(/[a-z]/, "La contraseña debe contener al menos una letra minúscula")
+      .regex(/[0-9]/, "La contraseña debe contener al menos un número")
+      .refine((val) => !/\s/.test(val), "La contraseña no debe contener espacios"),
+    confirmacion: z.string()
+  })
+  .refine((data) => data.contrasena === data.confirmacion, {
+    message: "Las contraseñas no coinciden",
+    path: ["confirmacion"]
+  });
+
+type ReseteoForm = z.infer<typeof resetearSchema>;
+
+const { handleSubmit, errors, values, defineField, submitCount } = useForm<ReseteoForm>({
+  validationSchema: toTypedSchema(resetearSchema),
+  initialValues: {
+    contrasena: "",
+    confirmacion: ""
+  }
+});
+const onSubmit = handleSubmit((values) => {
+  console.log("Formulario válido:", values);
+});
+
+const [contrasena, contrasenaAttrs] = defineField("contrasena");
+const [confirmacion, confirmacionAttrs] = defineField("confirmacion");
+</script>

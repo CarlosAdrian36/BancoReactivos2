@@ -3,13 +3,51 @@
 const emit = defineEmits(["toggle"]);
 
 import { useRoute } from "vue-router";
+import { useModalStore } from "./stores/modalStore";
+import CerrarSesion from "./CerrarSesion.vue";
+import BaseModal from "./BaseModal.vue";
+import ActualizarContrasena from "./ActualizarContrasena.vue";
 const route = useRoute();
+
+const modal = useModalStore();
+function openActualizarContraseñaModal() {
+  modal.openModal(ActualizarContrasena, {}, [
+    {
+      label: "Cancelar",
+      variant: "outline"
+    },
+    {
+      label: "Actualizar Contraseña",
+      variant: "primary",
+      action: () => {
+        // Aquí iría la lógica para actualizar la contraseña, como enviar datos al backend, etc.
+        console.log("Contraseña actualizada");
+        modal.closeModal();
+      }
+    }
+  ]);
+}
+
+function openCerrarSesionModal() {
+  modal.openModal(CerrarSesion, {}, [
+    {
+      label: "Cancelar",
+      variant: "outline"
+    },
+    {
+      label: "Cerrar Sesion",
+      variant: "error",
+      action: () => {
+        // Aquí iría la lógica para cerrar sesión, como limpiar tokens, redirigir, etc.
+        console.log("Sesión cerrada");
+        modal.closeModal();
+      }
+    }
+  ]);
+}
 </script>
 
 <template>
-  <!--  -->
-
-  <!--  -->
   <div class="navbar bg-base-100 border-b border-primary/10">
     <div class="navbar-start">
       <div class="dropdown">
@@ -92,10 +130,12 @@ const route = useRoute();
               <a class="justify-between"> Perfil </a>
             </li>
             <li><a>Configuracion</a></li>
-            <li><a>Cerrar Sesion</a></li>
+            <li><button class="btn-ghost" @click="openActualizarContraseñaModal">Actualizar Contraseña</button></li>
+            <li><button class="btn btn-sm btn-soft btn-error" @click="openCerrarSesionModal">Cerrar Sesion</button></li>
           </ul>
         </div>
       </div>
     </div>
   </div>
+  <base-modal />
 </template>
