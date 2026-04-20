@@ -21,10 +21,6 @@
         </button>
       </div>
     </div>
-    <!-- Para cerrar el modal dando click en el backdrop -->
-    <!-- <form method="dialog" class="modal-backdrop" @click.prevent="modal.closeModal()">
-      <button aria-label="Cerrar"></button>
-    </form> -->
   </dialog>
 </template>
 <script setup lang="ts">
