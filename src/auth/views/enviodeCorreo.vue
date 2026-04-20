@@ -53,7 +53,7 @@ const onSubmit = handleSubmit((formValues) => {
       </div>
 
       <!-- FORM -->
-      <form @submit.prevent="onSubmit" class="space-y-6">
+      <form @submit.prevent="onSubmit" novalidate class="space-y-6">
         <!-- Usuario -->
         <div>
           <label class="block text-sm font-medium text-base-content/70 mb-2"> Usuario </label>
@@ -95,7 +95,7 @@ const onSubmit = handleSubmit((formValues) => {
               :class="[
                 'w-full pl-10 pr-4 py-3 bg-base-200/50 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary text-base-content placeholder-gray-400 dark:placeholder-gray-500 transition-all outline-none',
                 {
-                  'border border-red-500 focus:ring-red-500 focus:border-red-500': errors.correo
+                  'border border-red-500 focus:ring-red-500 focus:border-red-500': null
                 }
               ]"
             />
@@ -112,7 +112,7 @@ const onSubmit = handleSubmit((formValues) => {
           class="w-full py-4 bg-primary hover:bg-primary/90 text-white font-bold rounded-xl shadow-lg shadow-primary/30 transition-all active:scale-[0.98]"
         >
           <span v-if="isSubmitting">Enviando correo...</span>
-          <span v-else>Enviar Solicitud</span>
+          <span v-else>Enviar </span>
         </button>
       </form>
 
