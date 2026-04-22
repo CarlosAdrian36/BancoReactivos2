@@ -4,7 +4,7 @@
       <!-- HEADER -->
       <div class="flex flex-col items-center gap-6 mb-10">
         <div class="text-center">
-          <h1 class="text-2xl font-bold text-base-content/70">Restablecer contraseña</h1>
+          <h1 class="text-2xl font-bold text-base-content/70">Actualizar contraseña</h1>
         </div>
       </div>
       <div v-if="submitCount > 0 && Object.keys(errors).length" role="alert" class="alert alert-error">
@@ -16,22 +16,21 @@
             d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
           />
         </svg>
-        <!-- <span>Verifica los requisitos</span> -->
         <span>
           {{
             errors.contrasena
-              ? "Verifica los requisitos de la contraseña"
-              : errors.confirmacion
-                ? "Las contraseñas no coinciden"
+              ? "Verifica los campos"
+              : errors.actualContrasena
+                ? "La contraseña actual es incorrecta"
                 : "Revisa los campos"
           }}
         </span>
       </div>
 
       <!-- FORM -->
-      <form @submit.prevent="onSubmit" class="space-y-6 pt-3">
+      <form class="space-y-6 pt-3">
         <div>
-          <label class="block text-sm font-medium text-base-content/70 mb-2"> Confirmar Contraseña </label>
+          <label class="block text-sm font-medium text-base-content/70 mb-2"> Contraseña Actual </label>
 
           <div class="relative group">
             <i
@@ -39,16 +38,23 @@
             ></i>
 
             <input
-              v-model="confirmacion"
-              v-bind="confirmacionAttrs"
-              type="password"
+              v-model="actualContrasena"
+              v-bind="actualContrasenaAttrs"
+              :type="showPassword ? 'text' : 'password'"
               :class="[
-                'w-full pl-10 pr-4 py-3 bg-base-200/50 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary text-base-content placeholder-gray-400 dark:placeholder-gray-500 transition-all outline-none',
+                'w-full pl-10 pr-4 py-3 bg-base-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary text-base-content placeholder-gray-400 dark:placeholder-gray-500 transition-all outline-none',
                 {
-                  'border border-red-500 focus:ring-red-500 focus:border-red-500': errors.confirmacion
+                  'border border-red-500 focus:ring-red-500 focus:border-red-500': errors.actualContrasena
                 }
               ]"
             />
+            <button
+              type="button"
+              @click="togglePassword"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition"
+            >
+              <i :class="showPassword ? 'fa-regular fa-eye-slash' : 'fa-regular fa-eye'"></i>
+            </button>
           </div>
         </div>
         <!-- Nueva Contraseña -->
@@ -65,7 +71,7 @@
               v-bind="contrasenaAttrs"
               :type="showPassword ? 'text' : 'password'"
               :class="[
-                'w-full pl-10 pr-4 py-3 bg-base-200/50 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary text-base-content placeholder-gray-400 dark:placeholder-gray-500 transition-all outline-none',
+                'w-full pl-10 pr-4 py-3 bg-base-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary text-base-content placeholder-gray-400 dark:placeholder-gray-500 transition-all outline-none',
                 {
                   'border border-red-500 focus:ring-red-500 focus:border-red-500': errors.contrasena
                 }
@@ -113,6 +119,12 @@
               </div>
               <span class="leading-none text-sm">Al menos un número</span>
             </div>
+            <div class="flex items-center gap-2">
+              <div :class="/[^A-Za-z0-9]/.test(values.contrasena) ? 'text-success' : 'text-gray-700'">
+                <i class="fa-solid fa-circle-check text-md"></i>
+              </div>
+              <span class="leading-none text-sm">Al menos un carácter especial</span>
+            </div>
 
             <div class="flex items-center gap-2">
               <div :class="values.contrasena && !/\\s/.test(values.contrasena) ? 'text-success' : 'text-gray-700'">
@@ -122,25 +134,25 @@
             </div>
           </div>
         </div>
-        <!-- Confirmar Contraseña -->
 
         <!-- Button -->
-        <button
+        <!-- <button
           type="submit"
           class="w-full py-4 bg-primary hover:bg-primary/90 text-white font-bold rounded-xl shadow-lg shadow-primary/30 transition-all active:scale-[0.98]"
         >
           Reestablecer Contraseña
-        </button>
+        </button> -->
       </form>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { useForm } from "vee-validate";
+import { useForm, useSubmitForm } from "vee-validate";
 import { z } from "zod";
 import { toTypedSchema } from "@vee-validate/zod";
-import { ref } from "vue";
+import { onBeforeUnmount, onMounted, ref, watch } from "vue";
+import { useModalStore } from "./stores/modalStore";
 
 const showPassword = ref(false);
 
@@ -148,36 +160,47 @@ const togglePassword = () => {
   showPassword.value = !showPassword.value;
 };
 
-const resetearSchema = z
-  .object({
-    contrasena: z
-      .string()
-      .min(9, "La contraseña debe tener al menos 9 caracteres")
-      .max(16, "La contraseña no debe exceder los 16 caracteres")
-      .regex(/[A-Z]/, "La contraseña debe contener al menos una letra mayúscula")
-      .regex(/[a-z]/, "La contraseña debe contener al menos una letra minúscula")
-      .regex(/[0-9]/, "La contraseña debe contener al menos un número")
-      .refine((val) => !/\s/.test(val), "La contraseña no debe contener espacios"),
-    confirmacion: z.string()
-  })
-  .refine((data) => data.contrasena === data.confirmacion, {
-    message: "Las contraseñas no coinciden",
-    path: ["confirmacion"]
-  });
+const resetearSchema = z.object({
+  actualContrasena: z.string().min(1, "La contraseña actual es requerida"),
+  contrasena: z
+    .string()
+    .min(9, "La contraseña debe tener al menos 9 caracteres")
+    .max(16, "La contraseña no debe exceder los 16 caracteres")
+    .regex(/[A-Z]/, "La contraseña debe contener al menos una letra mayúscula")
+    .regex(/[a-z]/, "La contraseña debe contener al menos una letra minúscula")
+    .regex(/[0-9]/, "La contraseña debe contener al menos un número")
+    .regex(/[^A-Za-z0-9]/, "La contraseña debe contener al menos un carácter especial")
+    .refine((val) => !/\s/.test(val), "La contraseña no debe contener espacios")
+});
 
 type ReseteoForm = z.infer<typeof resetearSchema>;
 
-const { handleSubmit, errors, values, defineField, submitCount } = useForm<ReseteoForm>({
+const { errors, values, defineField, submitCount } = useForm<ReseteoForm>({
   validationSchema: toTypedSchema(resetearSchema),
   initialValues: {
     contrasena: "",
-    confirmacion: ""
+    actualContrasena: ""
   }
-});
-const onSubmit = handleSubmit((values) => {
-  console.log("Formulario válido:", values);
 });
 
 const [contrasena, contrasenaAttrs] = defineField("contrasena");
-const [confirmacion, confirmacionAttrs] = defineField("confirmacion");
+const [actualContrasena, actualContrasenaAttrs] = defineField("actualContrasena");
+
+const modal = useModalStore();
+
+const onSubmit = useSubmitForm((values) => {
+  console.log("Formulario válido:", values);
+
+  const modal = useModalStore();
+  modal.closeModal();
+});
+watch(errors, (val) => {
+  console.log("Errores en tiempo real:", val);
+});
+onMounted(() => {
+  modal.setSubmitFN(() => onSubmit());
+});
+onBeforeUnmount(() => {
+  modal.setSubmitFN(() => null);
+});
 </script>

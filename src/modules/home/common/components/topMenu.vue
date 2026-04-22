@@ -19,6 +19,7 @@ function openActualizarContraseñaModal() {
     {
       label: "Actualizar Contraseña",
       variant: "primary",
+      type: "submit",
       action: () => {
         // Aquí iría la lógica para actualizar la contraseña, como enviar datos al backend, etc.
         console.log("Contraseña actualizada");
@@ -37,6 +38,8 @@ function openCerrarSesionModal() {
     {
       label: "Cerrar Sesion",
       variant: "error",
+      // type: "submit",
+
       action: () => {
         // Aquí iría la lógica para cerrar sesión, como limpiar tokens, redirigir, etc.
         console.log("Sesión cerrada");

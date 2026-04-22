@@ -8,7 +8,7 @@ export const useModalStore = defineStore("modal", () => {
   const props = ref<Record<string, unknown>>({});
   const buttons = ref<ModalButton[]>([]);
 
-  const submitFN = ref<null | (() => void)>(null);
+  const submitFN = ref<null | (() => Promise<void> | void)>(null);
   function openModal(componentRef: Component, componentProps = {}, modalButton: ModalButton[] = []) {
     component.value = componentRef;
     props.value = componentProps;

@@ -2,7 +2,7 @@ import type { RouteRecordRaw } from "vue-router";
 import Login from "../layout/login.vue";
 
 export const login: RouteRecordRaw[] = [
-  { 
+  {
     path: "/login",
     name: "Login",
     redirect: "/login/ingresar",
@@ -22,6 +22,11 @@ export const login: RouteRecordRaw[] = [
         path: "restablecer-contrasena",
         name: "RestablecerContrasena",
         component: () => import("../views/restablecerContrasena.vue")
+      },
+      {
+        path: "establecer-contrasena",
+        name: "EstablecerContrasena",
+        component: () => import("../views/establecerContrasena.vue")
       }
     ]
   }

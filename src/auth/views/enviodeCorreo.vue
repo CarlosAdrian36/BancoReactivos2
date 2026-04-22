@@ -34,14 +34,12 @@ const onSubmit = handleSubmit((formValues) => {
       <div class="flex flex-col items-center gap-6 mb-10">
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4 text-center sm:text-left">
           <div class="h-12 px-3 flex items-center justify-center rounded-lg">
-            <!-- <span class="text-base-content font-bold text-xl tracking-tighter"> UANL </span> -->
             <img src="/src/assets/image/Logo_de_la_UANL.svg.webp" alt="UANL Logo" class="h-20 w-auto" />
           </div>
 
           <div class="h-8 w-px bg-white/30 dark:bg-white/20"></div>
 
           <div class="flex items-center gap-2">
-            <!-- <span class="text-base-content font-semibold text-2xl tracking-tight"> Nexus </span> -->
             <img src="/src/assets/image/nx-logo.png" alt="Nexus Logo" class="h-10 w-auto" />
           </div>
         </div>
@@ -123,15 +121,7 @@ const onSubmit = handleSubmit((formValues) => {
         </router-link>
       </div>
     </div>
-    <!-- <div
-      class="mt-8 flex justify-center items-center gap-6 text-slate-500/80 dark:text-slate-400/50 text-[10px] uppercase tracking-widest font-bold"
-    >
-      <span class="flex items-center gap-1.5">
-        <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
-        
-      </span>
-      <span>v.0.0.1</span>
-    </div> -->
+
     <div class="mt-8 text-center text-white/60 text-xs">
       <p>© 2024 Universidad Autónoma de Nuevo León</p>
       <div class="flex justify-center gap-4 mt-2">
