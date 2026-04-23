@@ -17,7 +17,7 @@ function openActualizarContraseñaModal() {
       variant: "outline"
     },
     {
-      label: "Actualizar Contraseña",
+      label: "Actualizar ",
       variant: "primary",
       type: "submit",
       action: () => {

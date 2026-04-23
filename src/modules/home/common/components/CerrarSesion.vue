@@ -7,7 +7,7 @@
 <template>
   <div>
     <h3 class="font-bold text-lg">Cerrar Sesion</h3>
-    <p class="py-4">¿Estás seguro de que deseas cerrar la sesión?</p>
+    <p class="py-4">¿Estás seguro de que deseas cerrar su sesión?</p>
   </div>
 </template>
 <style scoped></style>

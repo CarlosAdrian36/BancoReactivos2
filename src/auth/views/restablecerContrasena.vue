@@ -19,6 +19,7 @@ const resetearSchema = z
       .regex(/[A-Z]/, "La contraseña debe contener al menos una letra mayúscula")
       .regex(/[a-z]/, "La contraseña debe contener al menos una letra minúscula")
       .regex(/[0-9]/, "La contraseña debe contener al menos un número")
+      .regex(/[^A-Za-z0-9]/, "La contraseña debe contener al menos un carácter especial")
       .refine((val) => !/\s/.test(val), "La contraseña no debe contener espacios"),
     confirmacion: z.string()
   })
@@ -66,7 +67,7 @@ const [confirmacion, confirmacionAttrs] = defineField("confirmacion");
         </div>
 
         <div class="text-center">
-          <h1 class="text-2xl font-bold text-base-content/70">Restablecer contraseña</h1>
+          <h1 class="text-2xl font-bold text-base-content/70">Reestablecer contraseña</h1>
         </div>
       </div>
       <div v-if="submitCount > 0 && Object.keys(errors).length" role="alert" class="alert alert-error">
@@ -154,6 +155,12 @@ const [confirmacion, confirmacionAttrs] = defineField("confirmacion");
               </div>
               <span class="leading-none text-sm">Al menos un número</span>
             </div>
+            <div class="flex items-center gap-2">
+              <div :class="/[^A-Za-z0-9]/.test(values.contrasena) ? 'text-success' : 'text-gray-700'">
+                <i class="fa-solid fa-circle-check text-md"></i>
+              </div>
+              <span class="leading-none text-sm">Al menos un carácter especial</span>
+            </div>
 
             <div class="flex items-center gap-2">
               <div :class="values.contrasena && !/\\s/.test(values.contrasena) ? 'text-success' : 'text-gray-700'">
@@ -191,7 +198,7 @@ const [confirmacion, confirmacionAttrs] = defineField("confirmacion");
           type="submit"
           class="w-full py-4 bg-primary hover:bg-primary/90 text-white font-bold rounded-xl shadow-lg shadow-primary/30 transition-all active:scale-[0.98]"
         >
-          Reestablecer Contraseña
+          Reestablecer
         </button>
       </form>
     </div>
