@@ -4,8 +4,20 @@ import TablaBancosyCarpetas from "../common/components/tablaBancosyCarpetas.vue"
 
 <template>
   <div class="p-8">
-    <h1 class="text-2xl font-bold">Mis Bancos</h1>
-    <div class="text-(--color-texto) text-sm">Gestiona y organiza tus bancos de preguntas y reactivos</div>
+    <div class="flex justify-between items-center mb-6">
+      <div>
+        <h1 class="text-2xl font-bold">Mis Bancos</h1>
+        <div class="text-(--color-texto) text-sm">Gestiona y organiza tus bancos de preguntas y reactivos</div>
+      </div>
+      <!-- <button class="btn btn-lg btn-soft btn-primary rounded-box">Crear</button> -->
+      <div class="dropdown dropdown-end">
+        <div tabindex="0" role="button" class="btn btn-lg btn-soft btn-primary rounded-box">Crear</div>
+        <ul tabindex="-1" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+          <li><a>Crear banco de reactivos</a></li>
+          <li><a>Crear Carpeta</a></li>
+        </ul>
+      </div>
+    </div>
 
     <div class="tabs tabs-lift">
       <label class="tab">
@@ -20,11 +32,11 @@ import TablaBancosyCarpetas from "../common/components/tablaBancosyCarpetas.vue"
         </div>
       </div>
 
-      <label class="tab">
+      <!-- <label class="tab">
         <input type="radio" name="my_tabs_4" />
         <i class="fa-solid fa-grid"></i>
       </label>
-      <div class="tab-content bg-base-100 border-base-300 p-6">contenido</div>
+      <div class="tab-content bg-base-100 border-base-300 p-6">contenido</div> -->
     </div>
   </div>
 </template>
