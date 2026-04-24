@@ -1,4 +1,21 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from "vue";
+// import { useItemsStore } from "@/stores/useitemsStore.ts";
+import { useItemsStore } from "@/modules/home/common/components/stores/useitemsStore";
+const store = useItemsStore();
+
+const nombre = ref("");
+
+function crearCarpeta() {
+  store.agregarCarpeta({
+    id: Date.now(),
+    nombre: nombre.value,
+    descripcion: "",
+    fecha: new Date().toISOString(),
+    bancos: 0
+  });
+}
+</script>
 
 <template>
   <h3 class="text-lg font-bold">Nueva carpeta</h3>

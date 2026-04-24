@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useRouter } from "vue-router";
 const router = useRouter();
 const irDetalle = (item: any) => {
   if (item.tipo === "banco") {
@@ -15,132 +16,16 @@ const irDetalle = (item: any) => {
   }
 };
 
-import { computed } from "vue";
-import { useRouter } from "vue-router";
+// SUSTITUIR POR TANSTACKQUERY
 
-const bancos = [
-  {
-    id: 1,
-    nombre: "Banco de Matemáticas",
-    descripcion: "Banco con ejercicios de álgebra, cálculo y geometría.",
-    reactivos: 10,
-    fecha: "19-03-2025",
-    estatus: "Pendiente"
-  },
-  {
-    id: 2,
-    nombre: "Física Básica",
-    descripcion: "Problemas introductorios.",
-    reactivos: 25,
-    fecha: "05-01-2025",
-    estatus: "Terminado"
-  },
-  {
-    id: 3,
-    nombre: "Química Orgánica",
-    descripcion:
-      "Colección extensa de reactivos sobre compuestos orgánicos, incluyendo nomenclatura, reacciones y mecanismos avanzados que requieren análisis detallado.",
-    reactivos: 540,
-    fecha: "12-02-2025",
-    estatus: "Revision"
-  },
-  {
-    id: 4,
-    nombre: "Historia de México",
-    descripcion: "Banco general.",
-    reactivos: 125,
-    fecha: "28-11-2024",
-    estatus: "Rechazado"
-  },
-  {
-    id: 5,
-    nombre: "Biología Molecular",
-    descripcion:
-      "Incluye temas de ADN, ARN, proteínas, replicación, transcripción y traducción con preguntas diseñadas para evaluar comprensión profunda.",
-    reactivos: 60,
-    fecha: "03-03-2025",
-    estatus: "Pendiente"
-  },
-  {
-    id: 6,
-    nombre: "Geografía",
-    descripcion: "Mapas y conceptos básicos.",
-    reactivos: 300,
-    fecha: "17-12-2024",
-    estatus: "Terminado"
-  },
-  {
-    id: 7,
-    nombre: "Programación en Java",
-    descripcion:
-      "Ejercicios prácticos de POO, estructuras de datos, manejo de excepciones y desarrollo de aplicaciones básicas.",
-    reactivos: 1035,
-    fecha: "09-03-2025",
-    estatus: "Revision"
-  },
-  {
-    id: 8,
-    nombre: "Inglés Básico",
-    descripcion: "Gramática simple.",
-    reactivos: 12,
-    fecha: "21-10-2024",
-    estatus: "Pendiente"
-  },
-  {
-    id: 9,
-    nombre: "Estadística",
-    descripcion:
-      "Problemas de probabilidad, distribuciones, inferencia estadística y análisis de datos aplicados a casos reales.",
-    reactivos: 50,
-    fecha: "14-01-2025",
-    estatus: "Terminado"
-  },
-  {
-    id: 10,
-    nombre: "Filosofía",
-    descripcion: "Conceptos clave.",
-    reactivos: 5,
-    fecha: "30-09-2024",
-    estatus: "Rechazado"
-  }
-];
+import { useItemsStore } from "./stores/useitemsStore";
+import { storeToRefs } from "pinia";
 
-const carpetas = [
-  {
-    id: 1,
-    nombre: "Carpeta Ciencias",
-    descripcion: "Contiene bancos y materiales de ciencias.",
-    fecha: "2026-03-18",
-    bancos: 12
-  }
-];
+const store = useItemsStore();
 
-const lista = computed(() => {
-  const bancosMap = bancos.map((b) => ({
-    id: b.id,
-    tipo: "banco",
-    titulo: b.nombre,
-    descripcion: b.descripcion,
-    fecha: b.fecha,
-    reactivos: b.reactivos,
-    bancos: null,
-    estatus: b.estatus,
-    icono: "fa-regular fa-file-lines fa-xl  text-primary"
-  }));
+const { lista } = storeToRefs(store);
 
-  const carpetasMap = carpetas.map((c) => ({
-    id: c.id,
-    tipo: "carpeta",
-    titulo: c.nombre,
-    descripcion: c.descripcion,
-    fecha: c.fecha,
-    reactivos: null,
-    estatus: null,
-    bancos: c.bancos,
-    icono: "fa-regular fa-folder fa-xl text-warning"
-  }));
-  return [...bancosMap, ...carpetasMap];
-});
+//
 </script>
 <template>
   <!-- <div class="max-w-350 mx-auto px-6 py-6">
