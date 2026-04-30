@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { useRouter } from "vue-router";
+import CrearCarpeta from "@/modules/home/modals/crearCarpeta.vue";
+const modal = useModalStore();
+
 const router = useRouter();
-const irDetalle = (item: any) => {
+const irDetalle = (item: ItemLista) => {
   if (item.tipo === "banco") {
     router.push({
       name: "banco-detalle",
@@ -15,11 +18,32 @@ const irDetalle = (item: any) => {
     });
   }
 };
+function editarCarpeta(item: ItemLista) {
+  modal.openModal(CrearCarpeta, { modo: "editar", carpeta: item }, [
+    {
+      label: "Cancelar",
+      variant: "outline",
+      action: modal.closeModal
+    },
+    {
+      label: "Guardar ",
+      variant: "primary",
+      type: "submit",
+      action: () => {
+        // Aquí iría la lógica para editar la carpeta, como enviar datos al backend, etc.
+        console.log("Carpeta editada");
+        modal.closeModal();
+      }
+    }
+  ]);
+}
 
 // SUSTITUIR POR TANSTACKQUERY
 
 import { useItemsStore } from "./stores/useitemsStore";
 import { storeToRefs } from "pinia";
+import { useModalStore } from "./stores/modalStore";
+import type { ItemLista } from "./interface/itemListaInterface";
 
 const store = useItemsStore();
 
@@ -35,7 +59,7 @@ const { lista } = storeToRefs(store);
       <tr>
         <th class="w-8 text-center">Tipo</th>
         <th>
-          Titulo
+          Nombre
           <label class="swap swap-rotate">
             <input type="checkbox" />
             <i class="swap-on fa-regular fa-arrow-down"></i>
@@ -60,9 +84,9 @@ const { lista } = storeToRefs(store);
         </td>
         <td>
           <p class="text-sm font-semibold">
-            {{ item.titulo }}
+            {{ item.nombre }}
           </p>
-          <span class="text-xs text-(--color-texto-secundario)">{{ item.descripcion }}</span>
+          <span v-if="item.descripcion" class="text-xs text-(--color-texto-secundario)">{{ item.descripcion }}</span>
         </td>
         <td>
           <div v-if="item.estatus != null">
@@ -90,7 +114,7 @@ const { lista } = storeToRefs(store);
         </td>
         <td>
           <div class="flex gap-3">
-            <button class="btn btn-soft btn-info" @click.stop>
+            <button class="btn btn-soft btn-info" @click.stop="editarCarpeta(item)">
               <i class="fa-regular fa-pen-to-square"></i>
             </button>
 

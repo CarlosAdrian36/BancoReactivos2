@@ -2,6 +2,7 @@
 import { defineStore } from "pinia";
 import type { Banco } from "../interface/bancoInterface";
 import type { Carpeta } from "../interface/carpetaInterface";
+import type { ItemLista } from "../interface/itemListaInterface";
 
 export const useItemsStore = defineStore("items", {
   state: () => ({
@@ -10,32 +11,30 @@ export const useItemsStore = defineStore("items", {
   }),
 
   getters: {
-    lista(state) {
-      const bancosMap = state.bancos.map((b) => ({
+    bancosLista(): ItemLista[] {
+      return this.bancos.map((b) => ({
         id: b.id,
         tipo: "banco",
-        titulo: b.nombre,
+        nombre: b.nombre,
         descripcion: b.descripcion,
         fecha: b.fecha,
         reactivos: b.reactivos,
-        bancos: null,
         estatus: b.estatus,
         icono: "fa-regular fa-file-lines fa-xl text-primary"
       }));
-
-      const carpetasMap = state.carpetas.map((c) => ({
+    },
+    carpetasLista(): ItemLista[] {
+      return this.carpetas.map((c) => ({
         id: c.id,
         tipo: "carpeta",
-        titulo: c.nombre,
-        descripcion: c.descripcion,
+        nombre: c.nombre,
         fecha: c.fecha,
-        reactivos: null,
-        estatus: null,
         bancos: c.bancos,
         icono: "fa-regular fa-folder fa-xl text-warning"
       }));
-
-      return [...bancosMap, ...carpetasMap];
+    },
+    lista(): ItemLista[] {
+      return [...this.carpetasLista, ...this.bancosLista];
     }
   },
 
@@ -47,7 +46,13 @@ export const useItemsStore = defineStore("items", {
     agregarCarpeta(carpeta: Carpeta) {
       this.carpetas.push(carpeta);
     },
-
+    editarCarpeta(id: number, data: Partial<Carpeta>) {
+      console.log("Editando carpeta con id:", id, "y datos:", data);
+      const carpeta = this.carpetas.find((c) => c.id === id);
+      if (carpeta) {
+        Object.assign(carpeta, data);
+      }
+    },
     eliminarItem(id: number, tipo: "banco" | "carpeta") {
       if (tipo === "banco") {
         this.bancos = this.bancos.filter((b) => b.id !== id);

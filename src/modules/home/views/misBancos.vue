@@ -6,10 +6,6 @@ import CrearBanco from "../modals/crearBanco.vue";
 import CrearCarpeta from "../modals/crearCarpeta.vue";
 const modal = useModalStore();
 
-// const abrirCrearBanco = () =>{}
-
-// const abrirCrearCarpeta = () =>{}
-
 function abrirCrearBanco() {
   modal.openModal(CrearBanco, {}, [
     {
@@ -31,7 +27,7 @@ function abrirCrearBanco() {
 }
 
 function abrirCrearCarpeta() {
-  modal.openModal(CrearCarpeta, {}, [
+  modal.openModal(CrearCarpeta, { modo: "crear" }, [
     {
       label: "Cancelar",
       variant: "outline",
@@ -43,8 +39,8 @@ function abrirCrearCarpeta() {
       type: "submit",
       action: () => {
         // Aquí iría la lógica para crear la carpeta, como enviar datos al backend, etc.
-        console.log("Carpeta creada");
-        modal.closeModal();
+        // console.log("Carpeta creada");
+        // modal.closeModal();
       }
     }
   ]);
