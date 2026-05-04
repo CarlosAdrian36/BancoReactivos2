@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import BaseModal from "../common/components/BaseModal.vue";
 import { useModalStore } from "../common/components/stores/modalStore";
 import TablaBancosyCarpetas from "../common/components/tablaBancosyCarpetas.vue";
 import CrearBanco from "../modals/crearBanco.vue";
@@ -88,5 +87,4 @@ function abrirCrearCarpeta() {
       <div class="tab-content bg-base-100 border-base-300 p-6">contenido</div> -->
     </div>
   </div>
-  <BaseModal />
 </template>

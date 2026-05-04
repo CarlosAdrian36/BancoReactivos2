@@ -58,6 +58,7 @@ export const useItemsStore = defineStore("items", {
       if (tipo === "banco") {
         this.bancos = this.bancos.filter((b) => b.id !== id);
       } else {
+        console.log("Eliminando carpeta con id:", id);
         this.carpetas = this.carpetas.filter((c) => c.id !== id);
       }
     }

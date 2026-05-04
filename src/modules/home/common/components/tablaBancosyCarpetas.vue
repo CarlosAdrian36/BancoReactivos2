@@ -54,11 +54,13 @@ function quitarCarpeta(item: ItemLista) {
       action: () => {
         // Aquí iría la lógica para eliminar la carpeta, como enviar datos al backend, etc.
         // console.log("Carpeta eliminada");
-        // modal.closeModal();
+        // modal.closeModal();]
+        // console.log("Carpeta eliminada con el boton");
+        // modal.submitFN?.();
+        // console.log("Despues de submitFN");
       }
     }
   ]);
-  // console.log("Carpeta eliminada");
 }
 
 // SUSTITUIR POR TANSTACKQUERY

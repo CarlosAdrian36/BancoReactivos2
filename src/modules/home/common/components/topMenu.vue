@@ -5,7 +5,6 @@ const emit = defineEmits(["toggle"]);
 import { useRoute } from "vue-router";
 import { useModalStore } from "./stores/modalStore";
 import CerrarSesion from "./CerrarSesion.vue";
-import BaseModal from "./BaseModal.vue";
 import ActualizarContrasena from "./ActualizarContrasena.vue";
 const route = useRoute();
 
@@ -140,5 +139,4 @@ function openCerrarSesionModal() {
       </div>
     </div>
   </div>
-  <base-modal />
 </template>
