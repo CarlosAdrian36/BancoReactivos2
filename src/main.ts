@@ -4,8 +4,12 @@ import "./style.css";
 import "./assets/fontawesome/css/all.css";
 import App from "./App.vue";
 import router from "./router/index.ts";
+import persistedState from "pinia-plugin-persistedstate";
 
 const app = createApp(App);
-app.use(createPinia());
+
+const pinia = createPinia();
+pinia.use(persistedState);
+app.use(pinia);
 app.use(router);
 app.mount("#app");

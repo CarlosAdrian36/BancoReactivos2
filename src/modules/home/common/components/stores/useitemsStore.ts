@@ -9,6 +9,7 @@ export const useItemsStore = defineStore("items", {
     bancos: [] as Banco[],
     carpetas: [] as Carpeta[]
   }),
+  persist: true,
 
   getters: {
     bancosLista(): ItemLista[] {

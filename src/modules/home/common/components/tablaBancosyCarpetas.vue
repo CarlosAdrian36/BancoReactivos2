@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useRouter } from "vue-router";
 import CrearCarpeta from "@/modules/home/modals/crearCarpeta.vue";
+import eliminarCarpeta from "@/modules/home/modals/eliminarCarpeta.vue";
 const modal = useModalStore();
 
 const router = useRouter();
@@ -31,11 +32,33 @@ function editarCarpeta(item: ItemLista) {
       type: "submit",
       action: () => {
         // Aquí iría la lógica para editar la carpeta, como enviar datos al backend, etc.
-        console.log("Carpeta editada");
+        console.log("Carpeta editada con el boton");
         modal.closeModal();
       }
     }
   ]);
+}
+
+function quitarCarpeta(item: ItemLista) {
+  // Aquí iría la lógica para eliminar la carpeta, como mostrar una confirmación, enviar datos al backend, etc.
+  modal.openModal(eliminarCarpeta, { carpeta: item }, [
+    {
+      label: "Cancelar",
+      variant: "outline",
+      action: modal.closeModal
+    },
+    {
+      label: "Eliminar ",
+      variant: "error",
+      type: "submit",
+      action: () => {
+        // Aquí iría la lógica para eliminar la carpeta, como enviar datos al backend, etc.
+        // console.log("Carpeta eliminada");
+        // modal.closeModal();
+      }
+    }
+  ]);
+  // console.log("Carpeta eliminada");
 }
 
 // SUSTITUIR POR TANSTACKQUERY
@@ -52,8 +75,6 @@ const { lista } = storeToRefs(store);
 //
 </script>
 <template>
-  <!-- <div class="max-w-350 mx-auto px-6 py-6">
-    <div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100"> -->
   <table class="table table-sm w-full">
     <thead class="bg-base-200">
       <tr>
@@ -74,6 +95,7 @@ const { lista } = storeToRefs(store);
     </thead>
     <tbody>
       <tr
+        v-if="lista.length"
         v-for="item in lista"
         :key="item.id"
         class="cursor-pointer hover:bg-base-200 transition"
@@ -118,8 +140,24 @@ const { lista } = storeToRefs(store);
               <i class="fa-regular fa-pen-to-square"></i>
             </button>
 
-            <button class="btn btn-soft btn-error" @click.stop>
+            <button class="btn btn-soft btn-error" @click.stop="quitarCarpeta(item)">
               <i class="fa-regular fa-trash-can"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+      <tr v-else>
+        <td colspan="6">
+          <div class="flex flex-col items-center justify-center py-10 text-center">
+            <i class="fa-regular fa-folder-open text-4xl text-base-content/40 mb-3"></i>
+
+            <p class="font-semibold text-base-content/70">No hay elementos aún</p>
+
+            <p class="text-sm text-base-content/50">Puedes crear una carpeta o banco para comenzar</p>
+
+            <button class="btn btn-primary btn-sm mt-4" @click="">
+              <i class="fa-regular fa-plus"></i>
+              Crear elemento
             </button>
           </div>
         </td>

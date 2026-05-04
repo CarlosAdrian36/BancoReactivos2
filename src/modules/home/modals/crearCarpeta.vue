@@ -51,6 +51,7 @@ const submit = handleSubmit(() => {
     store.editarCarpeta(props.carpeta.id, {
       nombre: nombre.value
     });
+    console.log("Se mando al submit editar");
   } else {
     store.agregarCarpeta({
       id: Date.now(),
@@ -60,7 +61,7 @@ const submit = handleSubmit(() => {
     });
   }
   modal.closeModal();
-  console.log("Carpeta creada");
+  console.log("Se mando al submit");
   return true;
 });
 

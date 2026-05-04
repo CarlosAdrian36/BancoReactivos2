@@ -40,25 +40,20 @@
   </div>
   <div class="divider"></div>
 
-  <!-- <h3 class="text-lg font-bold">Traduccion</h3>
-  <div class="flex flex-row py-4">
-    <div class="basis-1/3">
-      <p class="flex justify-center">Ingles</p>
-    </div>
-    <div class="basis-2/3">
-      <div class="flex justify-center">
-        <input type="checkbox" class="toggle checked:text-success" />
-      </div>
-    </div>
-  </div>
-  <div class="flex flex-row py-4">
-    <div class="basis-1/3">
-      <p class="flex justify-center">Frances</p>
-    </div>
-    <div class="basis-2/3">
-      <div class="flex justify-center">
-        <input type="checkbox" class="toggle checked:text-success" />
-      </div>
-    </div>
-  </div> -->
+  <!-- <input type="checkbox" aria-label="Flujo de trabajo" class="btn btn-block btn-outline btn-primary" />
+    -->
+
+  <!-- <label class="btn btn-block flex items-center gap-2 [&:has(input:checked)]:btn-primary cursor-pointer">
+    <input type="checkbox" class="hidden" />
+
+    <i class="fa-regular fa-code-branch"></i>
+    <span>Flujo de trabajo</span>
+  </label>
+
+  <label :class="['btn btn-block flex items-center gap-2 cursor-pointer', activo ? 'btn-primary' : '']">
+    <input type="checkbox" v-model="activo" class="hidden" />
+
+    <i class="fa-regular fa-code-branch"></i>
+    <span>Flujo de trabajo</span>
+  </label> -->
 </template>
