@@ -17,7 +17,7 @@ const store = useItemsStore();
 
 modal.setSubmitFN(() => {
   if (props.carpeta) {
-    console.log("Eliminando carpeta con id:", props.carpeta.id);
+    // console.log("Eliminando carpeta con id:", props.carpeta.id);
     store.eliminarItem(props.carpeta.id, props.carpeta.tipo);
     modal.closeModal();
   }

@@ -61,7 +61,7 @@ const submit = handleSubmit(() => {
     });
   }
   modal.closeModal();
-  console.log("Se mando al submit");
+
   return true;
 });
 

@@ -30,11 +30,7 @@ function editarCarpeta(item: ItemLista) {
       label: "Guardar ",
       variant: "primary",
       type: "submit",
-      action: () => {
-        // Aquí iría la lógica para editar la carpeta, como enviar datos al backend, etc.
-        console.log("Carpeta editada con el boton");
-        modal.closeModal();
-      }
+      action: () => {}
     }
   ]);
 }
@@ -50,15 +46,7 @@ function quitarCarpeta(item: ItemLista) {
     {
       label: "Eliminar ",
       variant: "error",
-      type: "submit",
-      action: () => {
-        // Aquí iría la lógica para eliminar la carpeta, como enviar datos al backend, etc.
-        // console.log("Carpeta eliminada");
-        // modal.closeModal();]
-        // console.log("Carpeta eliminada con el boton");
-        // modal.submitFN?.();
-        // console.log("Despues de submitFN");
-      }
+      type: "submit"
     }
   ]);
 }
